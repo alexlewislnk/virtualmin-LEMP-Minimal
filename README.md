@@ -114,7 +114,22 @@ and save in your password manager."
 
 ##Nginx Modifications
 
-(more to come)
+**/etc/nginx/nginx.conf**
+This replacement nginx.conf file disables the fulle version info for Nginx, hardens the TLS/SSL settings, and enabled compression for certain file type to improve browser performance.
+```
+mv /etc/nginx/nginx/conf /etc/nginx/nginx/conf.original
+wget -O /etc/nginx/nginx/conf https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx.conf
+```
+
+**Disable Default site**
+```
+rm /etc/nginx/sites-enabled/default
+```
+
+**Restart Nginx**
+```
+systemctl restart nginx
+```
 
 ## Virtualmin Post-Installation Wizard
 From a web browser, log in to the Virtualmin console at port 10000, using the root user credentials, and complete the Post-Installation Wizard. For the initial setup, you should use the server's IP address in the URL instead of FQDN (https://x.x.x.x:10000)
@@ -127,8 +142,5 @@ At the end of the Wizard, select the option to **Manage Enabled Features and Plu
 - Log file rotation
 - MySQL database
 - Protected web directories
-
-
-
 
 
