@@ -1,0 +1,28 @@
+server {
+        listen      443 ssl default_server;
+        listen [::]:443 ssl default_server;
+
+        # Disable logging
+        error_log  /dev/null;
+        access_log off;
+
+        # Snakeoil TLS to appease Nginx
+        ssl_certificate     /etc/ssl/snakeoil.pem;
+        ssl_certificate_key /etc/ssl/snakeoil.key;
+        ssl_stapling        off;
+        ssl_ciphers         NULL;
+
+        # Close the connection without sending a response
+        return 444;
+}
+server {
+        listen      80 default_server;
+        listen [::]:80 default_server;
+
+        # Disable logging
+        error_log  /dev/null;
+        access_log off;
+
+        # Close the connection without sending a response
+        return 444;
+}
