@@ -132,7 +132,7 @@ systemctl restart nginx
 ```
 
 **PHP Versions and Modules**
-'''
+```
 apt -y install php8.0 php8.0-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip}
 apt -y install php7.4 php7.4-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip} 
 apt -y purge php5.6* php7.0* php7.1* php7.2* php7.3* php8.1*
