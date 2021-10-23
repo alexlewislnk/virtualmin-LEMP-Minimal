@@ -1,5 +1,5 @@
-# virtualmin-LEMP-Minimal
-General instructions for install and setup of Virtualmin Minimal LEMP Server
+# Virtualmin's Minimal LEMP Server
+General instructions for install and setup. The minimal installation excludes the full mail processing stack (IMAP/POP servers, SpamAssassin and ClamAV).
 
 This assumes you have already completed the basic setup of your Ubuntu 20.04 LTS Server. 
 I suggest checking out my scripts for [Ubuntu Setup](https://github.com/alexlewislnk/Ubuntu-Setup) and [Emerging Threats Firewall](https://github.com/alexlewislnk/ET-Firewalld).
@@ -102,7 +102,7 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'debian-sys-maint'@'localhost';" | mysql -u
 echo "GRANT PROXY ON ''@'' TO 'debian-sys-maint'@'localhost' WITH GRANT OPTION;" | mysql -u root
 ```
 
-**Create Random Password for SQL root user**
+**Create Random Password for MySQL root user**
 ```
 RANDOM1=`< /dev/urandom tr -dc '[:alnum:]' | head -c${1:-32}`
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$RANDOM1';" | mysql -u root
@@ -111,3 +111,24 @@ MySQL root password has been set to $RANDOM1
 Please record password for use later in this setup 
 and save in your password manager."
 ```
+
+##Nginx Modifications
+
+(more to come)
+
+## Virtualmin Post-Installation Wizard
+From a web browser, log in to the Virtualmin console at port 10000, using the root user credentials, and complete the Post-Installation Wizard. For the initial setup, you should use the server's IP address in the URL instead of FQDN (https://x.x.x.x:10000)
+
+During the setup wizard, you will be prompted for the MySQL root password created earlier in this guide. 
+
+At the end of the Wizard, select the option to **Manage Enabled Features and Plugins**. These are the only feature that should be enabled:
+- Nginx website
+- SSL website
+- Log file rotation
+- MySQL database
+- Protected web directories
+
+
+
+
+
