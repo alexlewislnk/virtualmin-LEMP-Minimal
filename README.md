@@ -177,7 +177,7 @@ openssl req -new -x509 -nodes -out /etc/ssl/postfix.pem -keyout /etc/ssl/postfix
 ```
 
 **Configure Email SSL/TLS**
-``
+```
 postconf -e tls_medium_cipherlist=ECDH+AESGCM+AES128:ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES128:ECDH+AES:DHE+AES128:DHE+AES:RSA+AESGCM+AES128:RSA+AESGCM:\!aNULL:\!SHA1:\!DSS
 postconf -e tls_preempt_cipherlist=yes
 postconf -e smtpd_use_tls=yes
@@ -205,7 +205,7 @@ systemctl restart postfix
 
 **Restrict Mail protocols**
 
-Sice we are not using the Virtualmin’s mail services, then let’s lock down the Postfix SMTP server so it cannot be an attack target. We cannot disable it completely as it will be needed to send outbound email from your server. We configure it so connections are only accepted from the server itself.
+Since we are not using the Virtualmin’s mail services, then let’s lock down the Postfix SMTP server so it cannot be an attack target. We cannot disable it completely as it will be needed to send outbound email from your server. We configure it so connections are only accepted from the server itself.
 ```
 postconf -e inet_interfaces=127.0.0.1
 systemctl restart postfix
