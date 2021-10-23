@@ -137,7 +137,12 @@ wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/alexlewislnk/vir
 
 **Setup default Nginx site to enforce strict SNI**
 ```
+make-ssl-cert generate-default-snakeoil --force-overwrite
+```
+```
+rm /etc/nginx/sites-enabled/default
 wget -O /etc/nginx/sites-available/default https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx-default-site
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 ```
 
 **Restart Nginx**
