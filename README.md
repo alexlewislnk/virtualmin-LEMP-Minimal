@@ -136,11 +136,82 @@ From a web browser, log in to the Virtualmin console at port 10000, using the ro
 
 During the setup wizard, you will be prompted for the MySQL root password created earlier in this guide. 
 
-At the end of the Wizard, select the option to **Manage Enabled Features and Plugins**. These are the only feature that should be enabled:
+At the end of the Wizard, select the option to **Manage Enabled Features and Plugins**. These are the only features that should be enabled:
 - Nginx website
-- SSL website
-- Log file rotation
+- Nginx SSL website
 - MySQL database
-- Protected web directories
+- Log file rotation
 
+Next, select **System Settings** on the left menu, then click on **Re-check Configuration**.
 
+## Final Tweaks
+
+**Disable Unnecessary Services**
+
+If you plan to host DNS elsewhere, disable Bind DNS
+```
+systemctl mask bind9
+```
+
+If you plan to host email elsewhere, disable Dovecot Mail Server
+```
+systemctl mask dovecot
+```
+
+Disable Proftp server (I strongly encourage the use of ssh-based sftp instead of ftp/ftps)
+```
+systemctl mask proftpd
+```
+
+**Harden Email Encryption**
+
+Create Diffie-Hellman Key Pairs
+```
+openssl dhparam -out /etc/ssl/dhparam.pem 2048
+```
+
+**Create Initial Self-Signed Postfix Cert**
+```
+touch ~/.rnd
+openssl req -new -x509 -nodes -out /etc/ssl/postfix.pem -keyout /etc/ssl/postfix.key -days 3650 -subj "/C=US/O=$HOSTNAME/OU=Email/CN=$HOSTNAME"
+```
+
+**Configure Email SSL/TLS**
+``
+postconf -e tls_medium_cipherlist=ECDH+AESGCM+AES128:ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES128:ECDH+AES:DHE+AES128:DHE+AES:RSA+AESGCM+AES128:RSA+AESGCM:\!aNULL:\!SHA1:\!DSS
+postconf -e tls_preempt_cipherlist=yes
+postconf -e smtpd_use_tls=yes
+postconf -e smtpd_tls_loglevel=1
+postconf -e smtpd_tls_security_level=may
+postconf -e smtpd_tls_auth_only=yes
+postconf -e smtpd_tls_protocols=\!SSLv2,\!SSLv3,\!TLSv1,\!TLSv1.1
+postconf -e smtpd_tls_ciphers=medium
+postconf -e smtpd_tls_mandatory_protocols=\!SSLv2,\!SSLv3,\!TLSv1,\!TLSv1.1
+postconf -e smtpd_tls_mandatory_ciphers=medium
+postconf -e smtpd_tls_cert_file=/etc/ssl/postfix.pem
+postconf -e smtpd_tls_key_file=/etc/ssl/postfix.key
+postconf -e smtpd_tls_dh1024_param_file=/etc/ssl/dhparam.pem
+postconf -e smtp_use_tls=yes
+postconf -e smtp_tls_loglevel=1
+postconf -e smtp_tls_security_level=may
+postconf -e smtp_tls_protocols=\!SSLv2,\!SSLv3,\!TLSv1,\!TLSv1.1
+postconf -e smtp_tls_ciphers=medium
+postconf -e smtp_tls_mandatory_protocols=\!SSLv2,\!SSLv3,\!TLSv1,\!TLSv1.1
+postconf -e smtp_tls_mandatory_ciphers=medium
+postconf -e smtp_tls_cert_file=/etc/ssl/postfix.pem
+postconf -e smtp_tls_key_file=/etc/ssl/postfix.key
+systemctl restart postfix
+```
+
+**Restrict Mail protocols**
+
+Sice we are not using the Virtualmin’s mail services, then let’s lock down the Postfix SMTP server so it cannot be an attack target. We cannot disable it completely as it will be needed to send outbound email from your server. We configure it so connections are only accepted from the server itself.
+```
+postconf -e inet_interfaces=127.0.0.1
+systemctl restart postfix
+```
+
+**Finished – Reboot**
+```
+reboot
+```
