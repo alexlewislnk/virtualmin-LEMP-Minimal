@@ -112,7 +112,7 @@ Please record password for use later in this setup
 and save in your password manager."
 ```
 
-##Nginx Modifications
+## Nginx Modifications
 
 **/etc/nginx/nginx.conf**
 This replacement nginx.conf file disables the fulle version info for Nginx, hardens the TLS/SSL settings, and enabled compression for certain file type to improve browser performance.
