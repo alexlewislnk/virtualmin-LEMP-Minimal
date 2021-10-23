@@ -25,7 +25,7 @@ chmod +rx /tmp/install.sh
 
 **Run the install script**
 ```
-/tmp/install.sh –minimal --bundle LEMP
+/tmp/install.sh -–minimal --bundle LEMP
 ```
 
 **Configure Fail2Ban to work with the Firewall**
