@@ -135,9 +135,9 @@ mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original
 wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx.conf
 ```
 
-**Disable Default site**
+**Setup default Nginx site to enforce strict SNI**
 ```
-rm /etc/nginx/sites-enabled/default
+wget -O /etc/nginx/sites-available/default https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx-default-site
 ```
 
 **Restart Nginx**
