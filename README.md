@@ -117,8 +117,8 @@ and save in your password manager."
 
 This replacement nginx.conf file disables the fulle version info for Nginx, hardens the TLS/SSL settings, and enabled compression for certain file type to improve browser performance.
 ```
-mv /etc/nginx/nginx.conf /etc/nginx/nginx/conf.original
-wget -O /etc/nginx/nginx/conf https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx.conf
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx.conf
 ```
 
 **Disable Default site**
