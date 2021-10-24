@@ -141,7 +141,7 @@ make-ssl-cert generate-default-snakeoil --force-overwrite
 ```
 ```
 rm /etc/nginx/sites-enabled/default
-primaryaddr=$(ip -f inet addr show dev "$defaultdev" | grep 'inet ' | awk '{print $2}' | cut -d"/" -f1 | cut -f1)
+primaryaddr=$(ip -f inet addr show dev "$(ip ro ls|grep default|awk '{print $5}')" | grep 'inet ' | awk '{print $2}' | cut -d"/" -f1 | cut -f1)
 cat > /etc/nginx/sites-available/default << EOF
 server {
         listen $primaryaddr:443 ssl default_server;
