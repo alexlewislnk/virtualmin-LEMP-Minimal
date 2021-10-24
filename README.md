@@ -248,3 +248,16 @@ systemctl restart postfix
 ```
 reboot
 ```
+
+## After you create your virtual website
+Virtualmin doesn't do the best job of properly configuring your site so we will need to make a few modifications.
+
+**PHP Options**
+
+From the virtualmin portal, on the left menu select **Server Configuration** then **PHP Options**. Change the *PHP script execution mode* to **FPM* and click Save. 
+
+Once the configuration has been applied, click on **PHP Options** again select the correct PHP version for your server needs. If unsure, use the  7.4.xx version. Click Save.
+
+
+
+
