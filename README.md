@@ -141,7 +141,21 @@ make-ssl-cert generate-default-snakeoil --force-overwrite
 ```
 ```
 rm /etc/nginx/sites-enabled/default
-wget -O /etc/nginx/sites-available/default https://raw.githubusercontent.com/alexlewislnk/virtualmin-LEMP-Minimal/main/nginx-default-site
+primaryaddr=$(ip -f inet addr show dev "$defaultdev" | grep 'inet ' | awk '{print $2}' | cut -d"/" -f1 | cut -f1)
+cat > /etc/nginx/sites-available/default << EOF
+server {
+        listen $primaryaddr:443 ssl default_server;
+        listen $primaryaddr:80 default_server;
+        server_name  _;
+        error_log  /dev/null;
+        access_log off;
+        ssl_certificate     /etc/ssl/certs/ssl-cert-snakeoil.pem;
+        ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+        ssl_stapling        off;
+        ssl_ciphers         NULL;
+        return 444;
+}
+EOF
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 ```
 
