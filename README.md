@@ -114,15 +114,20 @@ and save in your password manager."
 
 ## Nginx and PHP Modifications
 **PHP Versions and Modules**
+
+Install the latest PHP version 8 and common modules.
 ```
 apt -y install php8.0 php8.0-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip}
 ```
+Install the latest PHP version 7 and common modules.
 ```
 apt -y install php7.4 php7.4-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip} 
 ```
+Remove all other versions of PHP.
 ```
 apt -y purge php5.6* php7.0* php7.1* php7.2* php7.3* php8.1*
 ```
+Enable the PHP modules.
 ```
 phpenmod bcmath bz2 curl gd igbinary imagick mbstring memcached opcache readline redis xml zip
 ```
