@@ -203,13 +203,13 @@ Create Diffie-Hellman Key Pairs
 openssl dhparam -out /etc/ssl/dhparam.pem 2048
 ```
 
-**Create Initial Self-Signed Postfix Cert**
+Create Initial Self-Signed Postfix Cert
 ```
 touch ~/.rnd
 openssl req -new -x509 -nodes -out /etc/ssl/postfix.pem -keyout /etc/ssl/postfix.key -days 3650 -subj "/C=US/O=$HOSTNAME/OU=Email/CN=$HOSTNAME"
 ```
 
-**Configure Email SSL/TLS**
+Configure Email SSL/TLS
 ```
 postconf -e tls_medium_cipherlist=ECDH+AESGCM+AES128:ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES128:ECDH+AES:DHE+AES128:DHE+AES:RSA+AESGCM+AES128:RSA+AESGCM:\!aNULL:\!SHA1:\!DSS
 postconf -e tls_preempt_cipherlist=yes
@@ -236,7 +236,7 @@ postconf -e smtp_tls_key_file=/etc/ssl/postfix.key
 systemctl restart postfix
 ```
 
-**Restrict Mail protocols**
+Restrict Mail protocols
 
 Since we are not using the Virtualmin’s mail services, then let’s lock down the Postfix SMTP server so it cannot be an attack target. We cannot disable it completely as it will be needed to send outbound email from your server. We configure it so connections are only accepted from the server itself.
 ```
@@ -244,7 +244,8 @@ postconf -e inet_interfaces=127.0.0.1
 systemctl restart postfix
 ```
 
-**Finished – Reboot**
+##Finished – Reboot
+This concludes the initial setup and configuration of you Virtualmin LAMP Server. Before creating your virtual webservers, reboot your server to make sure everything starts up correctly.
 ```
 reboot
 ```
@@ -264,14 +265,14 @@ Using either the **vi** or **pico** command line editor, we need to modify the N
 
 - There is a **listen** statement toward the top of the file that just has the IP address. Delete it.
 
-- There is another **listen** statement toward the end of the file, modify it to include **http2** in-between **ssl* and the semicolon. It should look similar to this:
+- There is another **listen** statement toward the end of the file, modify it to include **http2** in-between **ssl** and the semicolon. It should look similar to this:
 ```
         listen x.x.x.x:443 ssl http2;
 ```
 
 The next set of lines need to be added before the closing **}**. 
 
-- First look a the path for ssl_certificate statement; add the following line using the same path but using the filename **ssl.conf**
+- First, take a look at the path for **ssl_certificate** statement; add the following line using the same path but using the filename **ssl.conf**
 ```
         ssl_trusted_certificate /home/example/ssl.ca;
 ```
@@ -285,7 +286,7 @@ The next set of lines need to be added before the closing **}**.
 Last, add the following lines to the bottom of the file AFTER the closing **}**. This will be a redirect to send all HTTP requests to HTTPS. Note the follow changes you need to make for your server:
 - The **listen** statement should use the same IP address as the ssl listen statement.
 - The **server_name** statement should be the same as the server_name at the top of the file.
-- The return statement should containt the proper https URL to redirect to.
+- The **return** statement should containt the proper https URL to redirect to.
 ```
 server {
     listen x.x.x.x:80;
@@ -294,7 +295,7 @@ server {
 }
 ```
 
-Reload the Nginx config
+**Reload the Nginx config**
 ```
 nginx -s reload
 ```
