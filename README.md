@@ -33,11 +33,6 @@ chmod +rx /tmp/install.sh
 virtualmin config-system --include Fail2banFirewalld
 ```
 
-Reload the Nginx config
-```
-nginx -s reload
-```
-
 **Make sure Fail2Ban is enabled and running**
 ```
 systemctl enable fail2ban ; systemctl restart fail2ban
@@ -297,4 +292,9 @@ server {
     server_name example.com www.example.com;
     return 301 https://www.example.com$request_uri;
 }
+```
+
+Reload the Nginx config
+```
+nginx -s reload
 ```
