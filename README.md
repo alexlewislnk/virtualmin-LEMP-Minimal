@@ -244,7 +244,7 @@ postconf -e inet_interfaces=127.0.0.1
 systemctl restart postfix
 ```
 
-##Finished – Reboot
+## Finished – Reboot
 This concludes the initial setup and configuration of you Virtualmin LAMP Server. Before creating your virtual webservers, reboot your server to make sure everything starts up correctly.
 ```
 reboot
