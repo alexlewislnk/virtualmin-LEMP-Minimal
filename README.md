@@ -288,7 +288,7 @@ Last, add the following lines to the bottom of the file AFTER the closing **}**.
 - The return statement should containt the proper https URL to redirect to.
 ```
 server {
-    listen 80;
+    listen x.x.x.x:80;
     server_name example.com www.example.com;
     return 301 https://www.example.com$request_uri;
 }
