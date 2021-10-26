@@ -275,6 +275,17 @@ Using either the **vi** or **pico** command line editor, we need to modify the N
         listen x.x.x.x:443 ssl http2;
 ```
 
+- Add the following before the first **location** statement
+```
+        location ~ \.php(/|$) {
+                try_files $uri $fastcgi_script_name =404;
+                fastcgi_pass localhost:8001;
+        }
+        location ~* \.(jpg|jpeg|gif|png|pdf|css|html|js|swf`)$ {
+                expires 7d;
+        }
+~~~
+
 The next set of lines need to be added before the closing **}**. 
 
 - First, take a look at the path for **ssl_certificate** statement; add the following line using the same path but using the filename **ssl.conf**
@@ -294,9 +305,9 @@ Last, add the following lines to the bottom of the file AFTER the closing **}**.
 - The **return** statement should containt the proper https URL to redirect to.
 ```
 server {
-    listen x.x.x.x:80;
-    server_name example.com www.example.com;
-    return 301 https://www.example.com$request_uri;
+        listen x.x.x.x:80;
+        server_name example.com www.example.com;
+        return 301 https://www.example.com$request_uri;
 }
 ```
 
