@@ -277,9 +277,9 @@ Using either the **vi** or **pico** command line editor, we need to modify the N
 
 - Add the following before the first **location** statement
 ```
-        location ~ \.php(/|$) {
-                try_files $uri $fastcgi_script_name =404;
-                fastcgi_pass localhost:8001;
+        location / {
+            index index.php index.html index.htm;
+            try_files $uri $uri/ /index.php$is_args$args;
         }
         location ~* \.(jpg|jpeg|gif|png|pdf|css|html|js|swf`)$ {
                 expires 7d;
