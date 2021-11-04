@@ -284,6 +284,9 @@ Using either the **vi** or **pico** command line editor, we need to modify the N
         location ~* \.(jpg|jpeg|gif|png|pdf|css|html|js|swf`)$ {
                 expires 7d;
         }
+        location ~ ^/\.user\.ini {
+                return 404;
+        }
 ```
 
 The next set of lines need to be added before the closing **}**. 
