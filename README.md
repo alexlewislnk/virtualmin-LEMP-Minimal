@@ -250,7 +250,7 @@ systemctl restart postfix
 ```
 
 ## Finished – Reboot
-This concludes the initial setup and configuration of you Virtualmin LAMP Server. Before creating your virtual webservers, reboot your server to make sure everything starts up correctly.
+This concludes the initial setup and configuration of you Virtualmin LEMP Server. Before creating your virtual webservers, reboot your server to make sure everything starts up correctly.
 ```
 reboot
 ```
