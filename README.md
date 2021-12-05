@@ -158,7 +158,7 @@ server {
         ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
         ssl_stapling        off;
         ssl_ciphers         NULL;
-        return 444;
+        return 406;
 }
 EOF
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
