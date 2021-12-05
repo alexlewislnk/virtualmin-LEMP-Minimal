@@ -291,7 +291,7 @@ Using either the **vi** or **pico** command line editor, we need to modify the N
 
 The next set of lines need to be added before the closing **}**. 
 
-- First, take a look at the path for **ssl_certificate** statement; add the following line using the same path but using the filename **ssl.conf**
+- First, take a look at the path for **ssl_certificate** statement; add the following line using the same path but using the filename **ssl.ca**
 ```
         ssl_trusted_certificate /home/example/ssl.ca;
 ```
