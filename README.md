@@ -115,14 +115,9 @@ and save in your password manager."
 ## Nginx and PHP Modifications
 **PHP Versions and Modules**
 
-Install the current supported PHP 8 versions and common modules.
+Install the current supported PHP versions (7.4, 8.0, 8.1) and common modules.
 ```
-apt -y install php8.0 php8.0-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip}
-apt -y install php8.1 php8.1-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip}
-```
-Install the current supported PHP 7 version and common modules.
-```
-apt -y install php7.4 php7.4-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip} 
+apt -y install php{7.4,8.0,8,1} php{7.4,8.0,8,1}-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,mbstring,memcached,mysql,opcache,readline,redis,xml,zip} 
 ```
 Remove all other versions of PHP.
 ```
