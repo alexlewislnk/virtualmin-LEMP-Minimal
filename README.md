@@ -117,7 +117,7 @@ and save in your password manager."
 
 Install the current supported PHP versions (7.4, 8.0, 8.1) and common modules.
 ```
-apt -y install php{7.4,8.0,8.1}-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,intl,json,mbstring,memcached,mysql,opcache,pdo,readline,redis,xml,zip} 
+apt -y install php{7.4,8.0,8.1}-{bcmath,bz2,cgi,cli,common,curl,fpm,gd,igbinary,imagick,intl,mbstring,memcached,mysql,opcache,readline,redis,xml,zip} 
 ```
 Remove all other versions of PHP.
 ```
